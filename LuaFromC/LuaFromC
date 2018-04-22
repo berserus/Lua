@@ -1,0 +1,27 @@
+#include <lua.h>
+#include <lauxlib.h>
+#include <lualib.h>
+#include <stdlib.h>
+
+/* the Lua interpreter */
+
+
+int main ()
+{
+        /* initialize Lua */
+        lua_State* L = luaL_newstate();
+
+
+        /* load Lua base libraries */
+        luaopen_base(L);
+
+        /* run the script */
+        luaL_dofile(L, "sum.lua");
+
+        lua_getglobal(L, "sum");
+
+        /* cleanup Lua */
+        lua_close(L);
+
+        return 0;
+}
