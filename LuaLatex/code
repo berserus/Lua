@@ -1,0 +1,37 @@
+\begin{luacode}
+function pdf_print (...)
+	for _, str in ipairs({...}) do
+		pdf.print(str .. " ")
+	end
+	pdf.print("\string\n")
+end
+function move (p)
+	pdf_print (p[1], p[2], "m")
+end
+function line (p)
+	pdf_print(p[1], p[2], "l")
+end
+function curve(p1, p2, p3)
+	pdf_print(p1[1], p1[2],
+	p2[1], p2[2],
+	p3[1], p3[2], "c")
+end
+function close ()
+	pdf_print("h")
+end
+function linewidth (w)
+	pdf_print(w, "w")
+end
+function stroke ()
+	pdf_print("S")
+end
+\end{luacode}
+
+\luadraw 17 {
+for i = 1, 3 do
+local x, y = i * 30, 15 + 5 * i
+move{x, 0}
+line{x + 20, 0} line{x + 10, y}
+close() stroke()
+end
+}
